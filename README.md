@@ -11,7 +11,7 @@ postgresql HA based on pacemaker.
 
 ## postgresql高可用自动部署脚本
 
-两台主机，分别为master、slave。请先将IP、网段、数据目录等实际使用的配置填入文件ha.conf。
+两台主机，分别为master、slave。请先将IP、网段、数据目录等实际使用的配置填入文件ha.conf。请在root账户下执行。
 
 **请严格按照如下顺序执行,否则将出错**
 

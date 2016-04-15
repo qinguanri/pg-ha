@@ -35,11 +35,15 @@ hot_standby_feedback = on"  >> $PG_DIR_DATA/postgresql.conf
 host    replication     all    $NET      md5" >> $PG_DIR_DATA/pg_hba.conf
 
 
+
     pg_ctl -D $PG_DIR_DATA start
-    sleep 2
-    psql -U postgres;
-    alter  user postgres with password 'postgres';
-    create role replicator with login replication password '8d5e9531-3817-460d-a851-659d2e51ca99';
+    echo "pg数据库启动完毕，接下来配置数据库登录密码 ..."
+		
+		sleep 10
+    psql -U postgres << EOFF
+        alter  user postgres with password 'postgres';
+        create role replicator with login replication password '8d5e9531-3817-460d-a851-659d2e51ca99';
+EOFF
 EOF
 
 echo "master主机上的数据库配置完成!"
