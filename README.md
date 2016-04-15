@@ -3,6 +3,10 @@ postgresql HA based on pacemaker.
 
 该项目是postgresql双机热备、主从同步方案的部署脚本。该方案中使用pacemaker+corosync组件完成pg的高可用。
 
+详细的部署说明文档，请看博客：
+
+[postgresql双机热备、高可用方案（采用pacemaker+corosync实现）](http://blog.csdn.net/qguanri/article/details/51151974)
+
 # 部署脚本
 
 ## postgresql高可用自动部署脚本
