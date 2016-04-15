@@ -8,6 +8,13 @@ PG_DIR=`cat ha.conf | grep PG_DIR| awk -F '=' {'print $2'}`
 PG_CTL=`which pg_ctl`
 PSQL=`which psql`
 
+su - postgres << EOF
+    pg_ctl -D $PG_DIR/data/ -mi stop
+EOF
+
+cd /var/lib/pacemaker/cib
+rm -rf /var/lib/pacemaker/cib/
+
 # 将cib配置保存到文件
 pcs cluster cib pgsql_cfg
 # 在pacemaker级别忽略quorum
@@ -47,4 +54,4 @@ pcs -f pgsql_cfg constraint order demote  pgsql-cluster then stop  slave-group s
 pcs cluster cib-push pgsql_cfg
 
 
-echo "配置完成."
+echo "pg故障切换配置完成."

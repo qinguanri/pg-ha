@@ -3,12 +3,12 @@ PG_DIR=`cat ha.conf | grep PG_DIR| awk -F '=' {'print $2'}`
 PG_DIR_DATA="$PG_DIR/data"
 PG_DIR_XLOG="$PG_DIR/xlog_archive"
 
-NET=$2
+NET=`cat ha.conf | grep NET| awk -F '=' {'print $2'}`
 
 mkdir -p $PG_DIR_DATA
 mkdir -p $PG_DIR_XLOG
-chown -R postgres:postgres /data/postgresql/
-chmod 0700 /data/postgresql/data
+chown -R postgres:postgres $PG_DIR
+chmod 0700 $PG_DIR_DATA
 
 su - postgres << EOF
 	initdb -D $PG_DIR_DATA
@@ -35,7 +35,7 @@ hot_standby_feedback = on"  >> $PG_DIR_DATA/postgresql.conf
 host    replication     all    $NET      md5" >> $PG_DIR_DATA/pg_hba.conf
 
 
-    pg_ctl -D /data/postgresql/data/ start
+    pg_ctl -D $PG_DIR_DATA start
     sleep 2
     psql -U postgres;
     alter  user postgres with password 'postgres';
