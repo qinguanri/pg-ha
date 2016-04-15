@@ -31,3 +31,5 @@ cp -r scripts /etc/keepalived
 chmod +x /etc/keepalived/scripts/*.sh
 
 systemctl restart keepalived.service
+
+echo "keepalived 配置完成"
