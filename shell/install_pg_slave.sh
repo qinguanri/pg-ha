@@ -28,4 +28,9 @@ su - postgres <<EOF
     pg_ctl -D $PG_DIR/data/ -mi stop
 EOF
 
+# 清理pacemaker的cib配置
+cd /var/lib/pacemaker
+mv cib cib_bak
+mkdir cib
+
 echo "slave主机的数据库配置完成."

@@ -12,8 +12,19 @@ su - postgres << EOF
     pg_ctl -D $PG_DIR/data/ -mi stop
 EOF
 
+
 cd /var/lib/pacemaker/cib
-rm -rf /var/lib/pacemaker/cib/
+rm -rf cib*
+
+rm -rf /var/lib/pgsql/tmp/PGSQL.lock
+
+cd
+
+echo "正在重启pacemaker，请稍后 ..."
+systemctl restart pacemaker.service
+sleep 10
+
+rm -r pgsql_cfg
 
 # 将cib配置保存到文件
 pcs cluster cib pgsql_cfg
@@ -52,6 +63,5 @@ pcs -f pgsql_cfg constraint order promote pgsql-cluster then start slave-group s
 pcs -f pgsql_cfg constraint order demote  pgsql-cluster then stop  slave-group symmetrical=false score=0
 # 把配置文件push到cib
 pcs cluster cib-push pgsql_cfg
-
 
 echo "pg故障切换配置完成."
