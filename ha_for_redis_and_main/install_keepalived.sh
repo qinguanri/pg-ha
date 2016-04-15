@@ -15,10 +15,19 @@ sed -i "s/VIP_REDIS/$VIP_REDIS/g" keepalived_slave.conf
 sed -i "s/INTERFACE_NO/$INTERFACE_NO/g" keepalived_slave.conf
 
 mv /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf.bak
-cp keepalived_master.conf /etc/keepalived/keepalived.conf
+
+HOST_IP=`hostname -I`
+if [ "$MASTER_IP" == "$HOST_IP" ]; then
+    cp keepalived_master.conf /etc/keepalived/keepalived.conf
+elif [ "$SLAVE_IP" == "$HOST_IP" ]; then
+    cp keepalived_slave.conf /etc/keepalived/keepalived.conf
+else
+    echo "ERROR. ha.conf文件中的master/slave ip 地址配置错误"
+    exit 1
+fi
 
 mv /etc/keepalived/scripts /etc/keepalived/scripts.bak
 cp -r scripts /etc/keepalived
-chmod +x /etc/keepalived/scripts/*.#!/bin/sh
+chmod +x /etc/keepalived/scripts/*.sh
 
 systemctl restart keepalived.service
