@@ -7,6 +7,9 @@ postgresql HA based on pacemaker.
 
 [postgresql双机热备、高可用方案（采用pacemaker+corosync实现）](http://blog.csdn.net/qguanri/article/details/51151974)
 
+网络拓扑：
+![topo](images/pg_host.png)
+
 # 部署脚本
 
 ## postgresql高可用自动部署脚本
