@@ -25,7 +25,7 @@ cd $SRC_DIR
 echo "检查安装文件是否正确 ..."
 
 if [ ! -f "$SRC_DIR/$CONFIG_SH" ] || [ ! -f "$SRC_DIR/$OPEN_PORT_SH" ] \
-    || [ ! -f "$SRC_DIR/$CREATE_REPO_SH" ] || [ ! -f "$SRC_DIR/$INSTALL_PACEMAKER_SH"] \
+    || [ ! -f "$SRC_DIR/$CREATE_REPO_SH" ] || [ ! -f "$SRC_DIR/$INSTALL_PACEMAKER_SH" ] \
     || [ ! -f "$SRC_DIR/$INSTALL_PG_MASTER_SH" ] || [ ! -f "$SRC_DIR/$INSTALL_PG_SLAVE_SH" ] \
     || [ ! -f "$SRC_DIR/$AUTO_CHANGE_SH" ] || [ ! -f "$SRC_DIR/$CHECK_PG_SH" ] \
     || [ ! -f "$SRC_DIR/$COME_OVER_SH" ] || [ ! -f "$SRC_DIR/$YUM_TAR" ] \
