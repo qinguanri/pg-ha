@@ -2,6 +2,7 @@
 ## 开启UDP和TCP端口
 
 firewall_run=`ps -ef | grep firewalld|grep -v grep|wc -l`
+firewall_run=`echo $firewall_run`
 
 if [ "$firewall_run" != "1" ]; then
 	echo "ERROR. 防火墙程序未启动 firewalld"

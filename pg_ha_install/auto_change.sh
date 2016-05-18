@@ -11,14 +11,12 @@ MASTER_VIP=`cat ha.conf | grep VIP_PG_MASTER| awk -F '=' {'print $2'}`
 SLAVE_VIP=`cat ha.conf | grep VIP_PG_SLAVE| awk -F '=' {'print $2'}`
 PG_DIR=`cat ha.conf | grep PG_DIR| awk -F '=' {'print $2'}`
 
-
 PG_CTL=`which pg_ctl`
 PSQL=`which psql`
 
 su - postgres << EOF
     pg_ctl -D $PG_DIR/data/ -mi stop
 EOF
-
 
 cd /var/lib/pacemaker/cib
 rm -rf cib*

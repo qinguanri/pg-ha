@@ -8,6 +8,7 @@ fi
 MASTER_IP=`cat ha.conf | grep MASTER_IP | awk -F '=' {'print $2'}`
 SLAVE_IP=`cat ha.conf | grep SLAVE_IP | awk -F '=' {'print $2'}`
 
+## 为方便起见，修改hostname为本机IP
 hostname=`hostname -I`
 hostname "$hostname"
 
