@@ -20,7 +20,7 @@ COME_OVER_SH="come_over.sh"
 YUM_TAR="yum.tar"
 YUM_PCMK_TAR="yum_pacemaker.tar"
 
-cd SRC_DIR
+cd $SRC_DIR
 
 echo "检查安装文件是否正确 ..."
 
