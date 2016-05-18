@@ -72,8 +72,6 @@ $PG_DIR" > ha.conf
 else
     echo "$MASTER_IP_valid"
     echo "ERROR. 参数错误"
-    echo $MASTER_IP, $SLAVE_IP, $VIP_PG_MASTER, $VIP_PG_SLAVE, $NET, $PG_DIR
-    echo $MASTER_IP_valid, $SLAVE_IP_valid, $VIP_PG_MASTER_valid, $VIP_PG_SLAVE_valid, $NET_valid, $PG_DIR_valid
     echo "usage:"
     echo "     ./config.sh MASTER_IP=1.2.3.4 SLAVE_IP=1.2.3.5 VIP_PG_MASTER=1.2.3.6 VIP_PG_SLAVE=1.2.3.7 NET=1.2.0.0/16 PG_DIR=/data/postgresql"
 fi
