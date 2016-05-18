@@ -24,13 +24,28 @@ cd $SRC_DIR
 
 echo "检查安装文件是否正确 ..."
 
-if [ ! -f "$SRC_DIR/$CONFIG_SH" ] || [ ! -f "$SRC_DIR/$OPEN_PORT_SH" ] \
-    || [ ! -f "$SRC_DIR/$CREATE_REPO_SH" ] || [ ! -f "$SRC_DIR/$INSTALL_PACEMAKER_SH" ] \
-    || [ ! -f "$SRC_DIR/$INSTALL_PG_MASTER_SH" ] || [ ! -f "$SRC_DIR/$INSTALL_PG_SLAVE_SH" ] \
-    || [ ! -f "$SRC_DIR/$AUTO_CHANGE_SH" ] || [ ! -f "$SRC_DIR/$CHECK_PG_SH" ] \
-    || [ ! -f "$SRC_DIR/$COME_OVER_SH" ] || [ ! -f "$SRC_DIR/$YUM_TAR" ] \
-    || [ ! -f "$SRC_DIR/$YUM_PCMK_TAR" ]; then
+exsit_1=`ls $SRC_DIR/$CONFIG_SH|wc -l`
+exsit_2=`ls $SRC_DIR/$OPEN_PORT_SH|wc -l`
+exsit_3=`ls $SRC_DIR/$CREATE_REPO_SH|wc -l`
+exsit_4=`ls $SRC_DIR/$INSTALL_PACEMAKER_SH|wc -l`
+exsit_5=`ls $SRC_DIR/$INSTALL_PG_MASTER_SH|wc -l`
+exsit_6=`ls $SRC_DIR/$INSTALL_PG_SLAVE_SH|wc -l`
+exsit_7=`ls $SRC_DIR/$AUTO_CHANGE_SH|wc -l`
+exsit_8=`ls $SRC_DIR/$CHECK_PG_SH|wc -l`
+exsit_9=`ls $SRC_DIR/$COME_OVER_SH|wc -l`
+exsit_10=`ls $SRC_DIR/$YUM_TAR|wc -l`
+exsit_11=`ls $SRC_DIR/$YUM_PCMK_TAR|wc -l`
+
+
+if [ "$exsit_1" != "1" ] || [ "$exsit_2" != "1" ] || [ "$exsit_3" != "1" ] \
+    || [ "$exsit_4" != "1" ] || [ "$exsit_5" != "1" ] || [ "$exsit_6" != "1" ] \ 
+    || [ "$exsit_7" != "1" ] || [ "$exsit_8" != "1" ] || [ "$exsit_9" != "1" ] \
+    || [ "$exsit_10" != "1" ] || [ "$exsit_11" != "1" ]; then
     echo "ERROR. 缺少文件。请将安装包上传到目录$SRC_DIR"
+    echo "$exsit_1", "$exsit_2", "$exsit_3"
+    echo "$exsit_4", "$exsit_5", "$exsit_6"
+    echo "$exsit_7", "$exsit_8", "$exsit_9"
+    echo "$exsit_10", "$exsit_11"
     exit 1
 fi
 
