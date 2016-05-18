@@ -36,7 +36,7 @@ cd /root/pg_ha_install
 ./install_pg_master.sh
 ```
 
-(6) 在salve主机上执行。初始化pg salve
+(6) 在salve主机上执行。初始化pg salve。需要输入postgres密码：postgres
 
 ```
 ./install_pg_slave.sh
@@ -48,7 +48,7 @@ cd /root/pg_ha_install
 ./auto_change.sh
 ```
 
-(8) 在master或slave主机上执行。检查安装是否正确
+(8) 在master或slave主机上执行。大约需要等待30秒后，数据库启动完成，执行以下脚本检查安装是否正确。
 
 ```
 ./check_pg.sh
