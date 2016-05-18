@@ -39,9 +39,9 @@ archive_mode = on
 archive_command = 'cp %p $PG_DIR_XLOG/%f'
 max_wal_senders=5
 wal_keep_segments = 32
+#replication_timeout = 5000
 hot_standby = on
 restart_after_crash = off
-replication_timeout = 5000
 wal_receiver_status_interval = 2
 max_standby_streaming_delay = -1
 max_standby_archive_delay = -1
@@ -57,7 +57,7 @@ host    replication     all    $NET      md5" >> $PG_DIR_DATA/pg_hba.conf
     pg_ctl -D $PG_DIR_DATA start
     echo "pg数据库启动完毕，接下来配置数据库登录密码 ..."
 
-        sleep 10
+        sleep 5
     psql -U postgres << EOFF
         alter  user postgres with password 'postgres';
         create role replicator with login replication password '8d5e9531-3817-460d-a851-659d2e51ca99';

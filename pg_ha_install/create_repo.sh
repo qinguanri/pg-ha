@@ -32,3 +32,5 @@ name=Pacemaker Yum
 baseurl=file:///yum_pacemaker/
 gpgcheck=0
 enabled=1" > /etc/yum.repos.d/CentOS-Pacemaker.repo
+
+echo "创建repo完毕"

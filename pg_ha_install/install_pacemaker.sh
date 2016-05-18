@@ -18,6 +18,10 @@ useradd postgres
 echo "正在安装postgresql-server，安装可能需要几分钟 ..."
 yum install -y --disablerepo=\* --enablerepo=Local postgresql94-server postgresql94-contrib
 
+cp -r /usr/pgsql-9.4/bin/* /usr/bin/
+cp -r /usr/pgsql-9.4/lib/* /usr/lib/
+cp -r /usr/pgsql-9.4/share/* /usr/share/
+
 echo "正在安装pacemaker组件，安装可能需要几分钟 ..."
 yum install -y --disablerepo=\* --enablerepo=Pacemaker pacemaker pcs psmisc policycoreutils-python 
 

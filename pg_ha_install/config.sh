@@ -9,7 +9,7 @@ SRC_DIR="/root/pg_ha_install"
 CONFIG_SH="config.sh"      
 OPEN_PORT_SH="open_port.sh"
 CREATE_REPO_SH="create_repo.sh"
-INSTALL_PACEMAKER_SH="install_pacemacker.sh"
+INSTALL_PACEMAKER_SH="install_pacemaker.sh"
 INSTALL_PG_MASTER_SH="install_pg_master.sh"
 INSTALL_PG_SLAVE_SH="install_pg_slave.sh"
 AUTO_CHANGE_SH="auto_change.sh"
@@ -38,7 +38,7 @@ exsit_11=`ls $SRC_DIR/$YUM_PCMK_TAR|wc -l`
 
 
 if [ "$exsit_1" != "1" ] || [ "$exsit_2" != "1" ] || [ "$exsit_3" != "1" ] \
-    || [ "$exsit_4" != "1" ] || [ "$exsit_5" != "1" ] || [ "$exsit_6" != "1" ] \ 
+    || [ "$exsit_4" != "1" ] || [ "$exsit_5" != "1" ] || [ "$exsit_6" != "1" ] \
     || [ "$exsit_7" != "1" ] || [ "$exsit_8" != "1" ] || [ "$exsit_9" != "1" ] \
     || [ "$exsit_10" != "1" ] || [ "$exsit_11" != "1" ]; then
     echo "ERROR. 缺少文件。请将安装包上传到目录$SRC_DIR"
@@ -49,7 +49,7 @@ if [ "$exsit_1" != "1" ] || [ "$exsit_2" != "1" ] || [ "$exsit_3" != "1" ] \
     exit 1
 fi
 
-chmod +x "$SRC_DIR/*.sh"
+chmod +x $SRC_DIR/*.sh
 
 rm ha.conf
 
@@ -90,3 +90,5 @@ else
     echo "usage:"
     echo "     ./config.sh MASTER_IP=1.2.3.4 SLAVE_IP=1.2.3.5 VIP_PG_MASTER=1.2.3.6 VIP_PG_SLAVE=1.2.3.7 NET=1.2.0.0/16 PG_DIR=/data/postgresql"
 fi
+
+echo "OK. 检查结果正常。可以开始安装"
