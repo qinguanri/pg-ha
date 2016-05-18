@@ -8,13 +8,13 @@ if [ ! -f "$pg_rpm" ]; then
 	exit 1
 fi
 
-if [ ! -f "pcmk_rpm" ]; then
+if [ ! -f "$pcmk_rpm" ]; then
 	echo "ERROR. 未在当前目录中找到pacemaker安装包，文件名：", "$pcmk_rpm"
 	exit 1
 fi
 
-mv $pg_rpm /
-mv $pcmk_rpm /
+cp $pg_rpm /
+cp $pcmk_rpm /
 
 cd /
 
