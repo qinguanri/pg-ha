@@ -1,6 +1,6 @@
 # PostgreSQL双机热备、高可用自动安装脚本
 
-## 执行顺序
+## 一、安装步骤
 ------
 
 (1) 在master和slave主机上都要执行。检查安装环境、配置master、salve的IP
@@ -48,9 +48,42 @@ cd /root/pg_ha_install
 ./auto_change.sh
 ```
 
-(8) 在master或slave主机上执行。大约需要等待30秒后，数据库启动完成，执行以下脚本检查安装是否正确。
+## 二、检验安装结果
+------
+
+(1) 在master或slave主机上执行。大约需要等待30秒后，数据库启动完成，执行以下脚本检查安装是否正确。
 
 ```
 ./check_pg.sh
 ```
+
+## 三、模拟master故障、检验切换效果
+------
+
+
+(1) 查看数据库主从同步状态
+
+```
+pcs status
+
+crm_mon -Afr -1
+```
+
+(2) 杀掉master主机上的postgres进程，然后查看数据库主从同步状态
+
+```
+killall postgres
+
+pcs status
+
+crm_mon -Afr -1
+```
+
+## 四、修复故障，恢复双机热备
+-----
+
+```
+./come_over.sh
+```
+
 
