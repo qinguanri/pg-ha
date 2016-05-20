@@ -1,5 +1,4 @@
 
-
 ## pg 
 SRC_DIR="/root/pg_ha_install"
 
@@ -39,11 +38,11 @@ if [ "$exsit_1" != "1" ] || [ "$exsit_2" != "1" ] || [ "$exsit_3" != "1" ] \
     || [ "$exsit_4" != "1" ] || [ "$exsit_5" != "1" ] || [ "$exsit_6" != "1" ] \
     || [ "$exsit_7" != "1" ] || [ "$exsit_8" != "1" ] || [ "$exsit_9" != "1" ] \
     || [ "$exsit_10" != "1" ] || [ "$exsit_11" != "1" ]; then
-    echo "ERROR. some files cannot found. $SRC_DIR"
-    echo "$exsit_1", "$exsit_2", "$exsit_3"
-    echo "$exsit_4", "$exsit_5", "$exsit_6"
-    echo "$exsit_7", "$exsit_8", "$exsit_9"
-    echo "$exsit_10", "$exsit_11"
+    echo "ERROR. some files cannot found. $SRC_DIR. please check which file=0 below:"
+    echo "$SRC_DIR/$CONFIG_SH=$exsit_1", "$SRC_DIR/$OPEN_PORT_SH=$exsit_2", "$SRC_DIR/$CREATE_REPO_SH=$exsit_3"
+    echo "$SRC_DIR/$INSTALL_PACEMAKER_S=$exsit_4", "$SRC_DIR/$INSTALL_PG_MASTER_SH=$exsit_5", "$SRC_DIR/$INSTALL_PG_SLAVE_SH=$exsit_6"
+    echo "$SRC_DIR/$AUTO_CHANGE_SH=$exsit_7", "$SRC_DIR/$CHECK_PG_SH=$exsit_8", "$SRC_DIR/$COME_OVER_SH=$exsit_9"
+    echo "$SRC_DIR/$YUM_TAR=$exsit_10", "$SRC_DIR/$YUM_PCMK_TAR=$exsit_11"
     exit 1
 fi
 

@@ -77,4 +77,15 @@ pcs -f pgsql_cfg constraint order demote  pgsql-cluster then stop  slave-group s
 # 把配置文件push到cib
 pcs cluster cib-push pgsql_cfg
 
+sleep 2
+
+pacemaker_run=`ps -ef | grep pacemaker| grep -v grep |wc -l`
+corosync_run=`ps -ef | grep corosync | grep -v grep | wc -l`
+pcs_run=`ps -ef | grep pcs | grep -v grep | wc -l`
+
+if [ "$pacemaker_run" == "0" ] || [ "$corosync_run" == "0" ] || [ "$pcs_run" == "0" ]; then
+	echo "ERROR. config pacemaker error. please retry again."
+	exit 1
+fi
+
 echo "Done. config OK"

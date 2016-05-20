@@ -2,7 +2,7 @@
 firewall_run=`ps -ef | grep firewalld|grep -v grep|wc -l`
 firewall_run=`echo $firewall_run`
 
-if [ "$firewall_run" != "1" ]; then
+if [ "$firewall_run" == "0" ]; then
 	echo "ERROR.  firewalld has not open"
 else
 	setenforce 0

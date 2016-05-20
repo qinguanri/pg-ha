@@ -33,6 +33,30 @@ echo hacluster | passwd hacluster --stdin
 
 pcs cluster auth -u hacluster -p hacluster $MASTER_IP $SLAVE_IP
 
+pacemakcer_installed=`yum list installed | grep pacemaker | wc -l`
+pcs_installed=`yum list installed | grep pcs | wc -l`
+psmisc_installed=`yum list installed | grep psmisc | wc -l`
+policycoreutils_installed=`yum list installed | grep policycoreutils|wc -l`
+postgres_installed=`yum list installed | grep postgres|wc -l`
+
+if [ "$pacemakcer_installed" == "0" ] || [ "$pcs_installed" == "0" ] \
+	|| [ "$psmisc_installed" == "0" ] || [ "$policycoreutils_installed" == "0" ] \
+	|| [ "$postgres_installed" == "0" ]; then
+	echo "ERROR. some soft installed error. please retry again. check which installed=0 below:"
+	echo "pacemakcer_installed=$pacemakcer_installed"
+	echo "pcs_installed=$pcs_installed"
+	echo "psmisc_installed=$psmisc_installed"
+	echo "postgres_installed=$postgres_installed"
+	echo "policycoreutils_installed=$policycoreutils_installed"
+	exit 1
+fi
+
+MY_IP=`hostname`
+
+if [ "$MY_IP" == "$MASTER_IP" ]; then
+	echo "Done. pacemaker config ok"
+fi
+
 pcs cluster setup --last_man_standing=1 --name pgcluster $MASTER_IP $SLAVE_IP
 
 pcs cluster start --all
