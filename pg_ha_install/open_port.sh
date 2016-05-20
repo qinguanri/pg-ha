@@ -1,11 +1,9 @@
-## CentOS 7 中使用firewalld防火墙。
-## 开启UDP和TCP端口
 
 firewall_run=`ps -ef | grep firewalld|grep -v grep|wc -l`
 firewall_run=`echo $firewall_run`
 
 if [ "$firewall_run" != "1" ]; then
-	echo "ERROR. 防火墙程序未启动 firewalld"
+	echo "ERROR.  firewalld has not open"
 else
 	setenforce 0
 
@@ -37,5 +35,5 @@ else
 	firewall-cmd --add-port 34979/udp
 	firewall-cmd --add-port 42772/udp
 
-	echo "端口启动完毕"
+	echo "Done"
 fi

@@ -1,7 +1,7 @@
-## 初始化master主机上的pg
+## 
 
 if [ ! -f "ha.conf" ]; then
-    echo "ERROR. 当前目录缺少ha.conf配置文件。 请先执行config.sh脚本生成配置文件"
+    echo "ERROR. cannot find ha.conf, please execute config.sh to generate."
     exit 1
 fi
 
@@ -17,8 +17,8 @@ NET=`cat ha.conf | grep NET| awk -F '=' {'print $2'}`
 MY_IP=`hostname`
 
 if [ "$MY_IP" != "$MASTER_IP" ]; then
-    echo "ERROR. 这台主机可能不是master主机，不能执行该脚本。"
-    echo "本机IP：$MY_IP, master主机IP：$MASTER_IP"
+    echo "ERROR. this host isnot master host, should not execute this script"
+    echo "current IP：$MY_IP, master IP：$MASTER_IP"
     exit 1
 fi
 
@@ -55,7 +55,7 @@ host    replication     all    $NET      md5" >> $PG_DIR_DATA/pg_hba.conf
 
 
     pg_ctl -D $PG_DIR_DATA start
-    echo "pg数据库启动完毕，接下来配置数据库登录密码 ..."
+    echo "pg start ok, config password ..."
 
         sleep 5
     psql -U postgres << EOFF
@@ -64,4 +64,4 @@ host    replication     all    $NET      md5" >> $PG_DIR_DATA/pg_hba.conf
 EOFF
 EOF
 
-echo "master主机上的数据库配置完成!"
+echo "Done. master's pg config ok"

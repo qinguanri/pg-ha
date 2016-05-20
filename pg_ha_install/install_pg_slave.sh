@@ -1,7 +1,7 @@
-## 初始化slave主机上的pg
+## 
 
 if [ ! -f "ha.conf" ]; then
-    echo "ERROR. 当前目录缺少ha.conf配置文件。 请先执行config.sh脚本生成配置文件"
+    echo "ERROR. cannot find ha.conf, please execute config.sh to generate."
     exit 1
 fi
 
@@ -17,8 +17,8 @@ PG_DIR_XLOG="$PG_DIR/xlog_archive"
 MY_IP=`hostname`
 
 if [ "$MY_IP" != "$SLAVE_IP" ]; then
-    echo "ERROR. 这台主机可能不是slave主机，不能执行该脚本。"
-    echo "本机IP：$MY_IP, master主机IP：$SLAVE_IP"
+    echo "ERROR. this host is not slave host, cannot execute this script"
+    echo "current IP：$MY_IP, slave IP：$SLAVE_IP"
     exit 1
 fi
 
@@ -27,7 +27,7 @@ mkdir -p $PG_DIR_DATA
 mkdir -p $PG_DIR_XLOG
 
 
-echo "需要您输入pg数据库postgres用户的登录密码"
+echo "please input postgres'passord "
 pg_basebackup -h "$MASTER_IP" -U postgres -D "$PG_DIR_DATA" -X stream -P
 
 echo "standby_mode = 'on'
@@ -49,10 +49,10 @@ su - postgres <<EOF
     pg_ctl -D $PG_DIR/data/ -mi stop
 EOF
 
-# 清理pacemaker的cib配置
+
 cd /var/lib/pacemaker
 cp -r cib cib_bak
 rm -rf cib
 mkdir cib
 
-echo "slave主机的数据库配置完成."
+echo "Done. slave's pg config ok "

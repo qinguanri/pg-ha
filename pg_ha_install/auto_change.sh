@@ -1,7 +1,7 @@
-## 配置 pg 双机热备自动切换
+## config pg for auto failover
 
 if [ ! -f "ha.conf" ]; then
-    echo "ERROR. 当前目录缺少ha.conf配置文件。 请先执行config.sh脚本生成配置文件"
+    echo "ERROR. cannot find ha.conf, please execute config.sh to generate."
     exit 1
 fi
 
@@ -17,8 +17,8 @@ PSQL=`which psql`
 MY_IP=`hostname`
 
 if [ "$MY_IP" != "$MASTER_IP" ]; then
-    echo "ERROR. 这台主机可能不是master主机，不能执行该脚本。"
-    echo "本机IP：$MY_IP, master主机IP：$MASTER_IP"
+    echo "ERROR. this host is not Master host, should not execute this script."
+    echo "current IP：$MY_IP, master IP：$MASTER_IP"
     exit 1
 fi
 
@@ -33,7 +33,7 @@ rm -rf /var/lib/pgsql/tmp/PGSQL.lock
 
 cd
 
-echo "正在重启pacemaker，请稍后 ..."
+echo "restart pacemaker ...."
 systemctl restart pacemaker.service
 sleep 10
 
@@ -77,4 +77,4 @@ pcs -f pgsql_cfg constraint order demote  pgsql-cluster then stop  slave-group s
 # 把配置文件push到cib
 pcs cluster cib-push pgsql_cfg
 
-echo "pg故障切换配置完成."
+echo "Done. config OK"

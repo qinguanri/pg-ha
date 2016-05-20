@@ -1,11 +1,9 @@
-# 做一些安装前的准备工作：
-# （1）检查安装文件是否齐全
-# （2）修改配置文件ha.conf
 
-## pg 双机热备安装文件存放目录
+
+## pg 
 SRC_DIR="/root/pg_ha_install"
 
-## pg 双机热备所需脚本
+## 
 CONFIG_SH="config.sh"      
 OPEN_PORT_SH="open_port.sh"
 CREATE_REPO_SH="create_repo.sh"
@@ -22,7 +20,7 @@ YUM_PCMK_TAR="yum_pacemaker.tar"
 
 cd $SRC_DIR
 
-echo "检查安装文件是否正确 ..."
+echo "check files..."
 
 exsit_1=`ls $SRC_DIR/$CONFIG_SH|wc -l`
 exsit_2=`ls $SRC_DIR/$OPEN_PORT_SH|wc -l`
@@ -41,7 +39,7 @@ if [ "$exsit_1" != "1" ] || [ "$exsit_2" != "1" ] || [ "$exsit_3" != "1" ] \
     || [ "$exsit_4" != "1" ] || [ "$exsit_5" != "1" ] || [ "$exsit_6" != "1" ] \
     || [ "$exsit_7" != "1" ] || [ "$exsit_8" != "1" ] || [ "$exsit_9" != "1" ] \
     || [ "$exsit_10" != "1" ] || [ "$exsit_11" != "1" ]; then
-    echo "ERROR. 缺少文件。请将安装包上传到目录$SRC_DIR"
+    echo "ERROR. some files cannot found. $SRC_DIR"
     echo "$exsit_1", "$exsit_2", "$exsit_3"
     echo "$exsit_4", "$exsit_5", "$exsit_6"
     echo "$exsit_7", "$exsit_8", "$exsit_9"
@@ -86,9 +84,9 @@ $PG_DIR" > ha.conf
 
 else
     echo "$MASTER_IP_valid"
-    echo "ERROR. 参数错误"
+    echo "ERROR. args error"
     echo "usage:"
     echo "     ./config.sh MASTER_IP=1.2.3.4 SLAVE_IP=1.2.3.5 VIP_PG_MASTER=1.2.3.6 VIP_PG_SLAVE=1.2.3.7 NET=1.2.0.0/16 PG_DIR=/data/postgresql"
 fi
 
-echo "OK. 检查结果正常。可以开始安装"
+echo "OK. you can do next step now."
