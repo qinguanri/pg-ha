@@ -33,7 +33,6 @@
 
 	0 directories, 13 files
 	```
-* 下载安装脚本：https://yunpan.cn/cSHLpzALuZRxB （提取码：5cec）
 * PostgreSQL使用5432端口，IP使用VIP_PG_MASTER对外提供服务
 
 **所有操作都在root账户下执行，请严格按照如下顺序执行,否则将出错**
