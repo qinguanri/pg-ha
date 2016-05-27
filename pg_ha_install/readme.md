@@ -34,7 +34,6 @@
 	0 directories, 13 files
 	```
 * 下载安装脚本：https://yunpan.cn/cSHLpzALuZRxB （提取码：5cec）
-* 详细说明文档：[PostgreSQL高可用](https://wiki.skylar.corp.qihoo.net/projects/skylar6/wiki/PostgreSQL%E9%AB%98%E5%8F%AF%E7%94%A8)
 * PostgreSQL使用5432端口，IP使用VIP_PG_MASTER对外提供服务
 
 **所有操作都在root账户下执行，请严格按照如下顺序执行,否则将出错**
