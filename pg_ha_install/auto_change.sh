@@ -14,14 +14,6 @@ PG_DIR=`cat ha.conf | grep PG_DIR| awk -F '=' {'print $2'}`
 PG_CTL=`which pg_ctl`
 PSQL=`which psql`
 
-MY_IP=`hostname`
-
-if [ "$MY_IP" != "$MASTER_IP" ]; then
-    echo "ERROR. this host is not Master host, should not execute this script."
-    echo "current IP：$MY_IP, master IP：$MASTER_IP"
-    exit 1
-fi
-
 su - postgres << EOF
     pg_ctl -D $PG_DIR/data/ -mi stop
 EOF

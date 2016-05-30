@@ -24,13 +24,20 @@ fi
 
 mv $PG_DIR_DATA $PG_DIR/bak
 
-mkdir -p $PG_DIR_DATA
+mkdir -p $PG_DIR
+
+# data.tar.gz 是pg初始化后生成的data目录文件。安装前要准备好
+cp data.tar.gz $PG_DIR
+cd $PG_DIR
+gunzip data.tar.gz
+tar xvf data.tar
+
 mkdir -p $PG_DIR_XLOG
 chown -R postgres:postgres $PG_DIR
 chmod 0700 $PG_DIR_DATA
 
 su - postgres << EOF
-    initdb -D $PG_DIR_DATA
+    #initdb -D $PG_DIR_DATA -E UTF-8 --no-locale
 
     echo "listen_addresses = '*'
 wal_level = hot_standby
@@ -61,6 +68,7 @@ host    replication     all    $NET      md5" >> $PG_DIR_DATA/pg_hba.conf
     psql -U postgres << EOFF
         alter  user postgres with password 'postgres';
         create role replicator with login replication password '8d5e9531-3817-460d-a851-659d2e51ca99';
+
 EOFF
 EOF
 

@@ -14,6 +14,7 @@ hostname "$hostname"
 
 # 
 useradd postgres
+#useradd hacluster
 
 echo "installing postgresql-server，please wait a minute ..."
 yum install -y --disablerepo=\* --enablerepo=Local postgresql94-server postgresql94-contrib
@@ -23,15 +24,20 @@ cp -r /usr/pgsql-9.4/lib/* /usr/lib/
 cp -r /usr/pgsql-9.4/share/* /usr/share/
 
 echo "installing pacemaker, please wait a minute ..."
-yum install -y --disablerepo=\* --enablerepo=Pacemaker pacemaker pcs psmisc policycoreutils-python 
+yum install -y --disablerepo=\* --enablerepo=Pacemaker pacemaker
+sleep 2
+yum install -y --disablerepo=\* --enablerepo=Pacemaker pcs
+sleep 2
+yum install -y --disablerepo=\* --enablerepo=Pacemaker psmisc
+sleep 2
+yum install -y --disablerepo=\* --enablerepo=Pacemaker policycoreutils-python
+sleep 2
 
 echo "install pacemaker ok, configing ..."
 
 systemctl start pcsd.service
 systemctl enable pcsd.service
 echo hacluster | passwd hacluster --stdin
-
-pcs cluster auth -u hacluster -p hacluster $MASTER_IP $SLAVE_IP
 
 pacemaker_installed=`yum list installed | grep pacemaker |grep -v grep | wc -l`
 pcs_installed=`yum list installed | grep pcs |grep -v grep| wc -l`
@@ -54,7 +60,10 @@ MY_IP=`hostname`
 
 if [ "$MY_IP" == "$MASTER_IP" ]; then
     echo "Done. pacemaker config ok"
+    exit 0
 fi
+
+pcs cluster auth -u hacluster -p hacluster $MASTER_IP $SLAVE_IP
 
 pcs cluster setup --last_man_standing=1 --name pgcluster $MASTER_IP $SLAVE_IP
 
