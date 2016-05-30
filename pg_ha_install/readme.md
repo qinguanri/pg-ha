@@ -6,8 +6,8 @@
 * 两台CentOS 7 主机，分别为Master和Slave。
 * 防火墙使用firewalld，打开如下端口：
 	```
-	tcp端口：22 5432 55284 2224 21 25 60403
-	udp端口: 48294 5405 53055 323 60801 27103 39458 68 35525 61447 5859 38150 36135 54705 43639 34979 42772
+	tcp端口：5432
+	udp端口: 5405
 	```
 * 两个未被占用的虚拟IP，要求虚IP和主机在同一子网段。
 * 将所有安装脚本及压缩包上传到master/slave主机的/root目录下解压缩 ```tar xvf pg_ha_install.tar```，最后目录结构如下：
@@ -33,8 +33,6 @@
 
 	0 directories, 13 files
 	```
-* 下载安装脚本：https://yunpan.cn/cSHLpzALuZRxB （提取码：5cec）
-* 详细说明文档：[PostgreSQL高可用](https://wiki.skylar.corp.qihoo.net/projects/skylar6/wiki/PostgreSQL%E9%AB%98%E5%8F%AF%E7%94%A8)
 * PostgreSQL使用5432端口，IP使用VIP_PG_MASTER对外提供服务
 
 **所有操作都在root账户下执行，请严格按照如下顺序执行,否则将出错**
@@ -129,79 +127,8 @@ crm_mon -Afr -1
 -----
 
 ```
-./come_over.sh
-```
+./open_port.sh 
 
-
-
-./open_port.sh
-```
-
-(3) 在master和slave主机上都要执行。创建repo离线安装包
-
-```
-./create_repo.sh
-```
-
-(4) 在master和slave主机上都要执行。安装pacemaker和pg
-
-```
-./install_pacemacker.sh
-```
-
-(5) 在master主机上执行。初始化pg master
-
-```
-./install_pg_master.sh
-```
-
-(6) 在salve主机上执行。初始化pg salve。需要输入postgres密码：postgres
-
-```
-./install_pg_slave.sh
-```
-
-(7) 在master主机上执行。配置主备自动切换
-
-```
-./auto_change.sh
-```
-
-## 二、检验安装结果
-------
-
-(1) 在master或slave主机上执行。大约需要等待30秒后，数据库启动完成，执行以下脚本检查安装是否正确。
-
-```
-./check_pg.sh
-```
-
-## 三、模拟master故障、检验切换效果
-------
-
-
-(1) 查看数据库主从同步状态
-
-```
-pcs status
-
-crm_mon -Afr -1
-```
-
-(2) 杀掉master主机上的postgres进程，然后查看数据库主从同步状态
-
-```
-killall postgres
-
-pcs status
-
-crm_mon -Afr -1
-```
-
-## 四、修复故障，恢复双机热备
------
-
-```
 ./come_over.sh
 ```
 
